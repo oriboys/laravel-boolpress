@@ -11,7 +11,7 @@
           <div class="" style="display: flex; justify-content: space-between;">
             <h4 class="card-title">{{$post->title}}</h4>
             <h5>{{$post->user->name}}</h5>
-            <a href="#">
+            <a href="{{route('guest.posts.show', $post->slug)}}">
               <button class="btn btn-success"type="button" name="button">Read more</button>
             </a>
           </div style="">

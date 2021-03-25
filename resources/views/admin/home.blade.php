@@ -16,6 +16,7 @@
 
                     {{ __('You are logged in!') }}
                 </div>
+                <a style="text-align: center; font-size: 20px;"href="{{route('guest.posts.index')}}">Lista posts</a>
             </div>
         </div>
     </div>

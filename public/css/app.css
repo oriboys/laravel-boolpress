@@ -10942,3 +10942,33 @@ a.text-dark:focus {
   }
 }
 
+.show-detailes {
+  margin-left: 50px;
+  margin-right: 50px;
+  margin-bottom: 50px;
+  margin-top: 50px;
+}
+
+.show-detailes h1 {
+  font-size: 60px;
+}
+
+.show-detailes .show-info {
+  display: flex;
+  justify-content: space-between;
+}
+
+.show-detailes .show-info a {
+  text-decoration: none;
+  font-size: 20px;
+}
+
+.show-detailes .show-info span {
+  font-size: 34px;
+  font-weight: bold;
+}
+
+.show-detailes .show-content {
+  font-size: 30px;
+}
+

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Post;
 
-class Postcontroller extends Controller
+class PostController extends Controller
 {
     public function index(){
       $posts = Post::all();
@@ -15,4 +15,14 @@ class Postcontroller extends Controller
       ];
       return view('guest.post.index',$data);
     }
+
+    public function show($slug){
+      $post = Post::where('slug', $slug)->first();
+
+      $data = [
+        'post' => $post
+      ];
+      return view('guest.post.show',$data);
+    }
+
 }
