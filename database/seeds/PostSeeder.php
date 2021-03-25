@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use Faker\Generator as Faker;
 use App\Post;
+use App\User;
 class PostSeeder extends Seeder
 {
     /**
@@ -31,6 +32,12 @@ class PostSeeder extends Seeder
           }
 
           $newPost->slug = $slug;
+
+
+          $users = User::all();
+          $users = $users->toArray();
+          $users = Count($users);
+          $newPost->user_id = rand(1,$users);
 
           $newPost->save();
         }
