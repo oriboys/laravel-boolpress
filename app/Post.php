@@ -10,9 +10,10 @@ class Post extends Model
       'title', 'slug', 'content'
     ];
 
-    public function user()
+
+  public function user()
  {
-    return $this->hasOne('App\UserInfo');
-  }
+return $this->belongsTo('App\User');
+ }
 
 }

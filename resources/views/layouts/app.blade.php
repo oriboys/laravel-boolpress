@@ -72,7 +72,7 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main class="py-4 bg-success" style="width: 100%; min-height: calc(100vh - 55px);">
             @yield('content')
         </main>
     </div>
