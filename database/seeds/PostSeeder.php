@@ -12,11 +12,25 @@ class PostSeeder extends Seeder
      */
     public function run(Faker  $faker)
     {
+
+
       for ($i = 0; $i < 10; $i++){
           $newPost = new Post();
-          $newPost->title = $faker->name;
-          $newPost->slug = Str::slug($newPost->title, '-');
+          $newPost->title = $faker->cityPrefix();
           $newPost->content = $faker->text(300);
+          $slug = Str::slug($newPost->title);
+          $slufBeginner = $slug;
+
+          $postPresente = Post::where('slug',$slug)->first();
+          $cont = 1;
+
+          while($postPresente){
+            $slug = $slufBeginner.'-'.$cont;
+            $postPresente = Post::where('slug',$slug)->first();
+              $cont++;
+          }
+
+          $newPost->slug = $slug;
 
           $newPost->save();
         }
