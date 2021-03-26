@@ -7,6 +7,7 @@ use Illuminate\support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Post;
+use App\Tag;
 
 
 class PostController extends Controller
@@ -33,7 +34,11 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('admin.post.create');
+        $tags= Tag::all();
+        $data = [
+          'tags' => $tags
+        ];
+        return view('admin.post.create', $data);
     }
 
     /**
@@ -45,14 +50,28 @@ class PostController extends Controller
     public function store(Request $request)
     {
       $data = $request->all();
+      // dd($data);
       $iduser = Auth::id();
       $postNew = new Post();
       $postNew->user_id = $iduser;
       $postNew->slug = Str::slug($data['title']);
+      $slufBeginner = $postNew->slug;
+      $postPresente = Post::where('slug',$postNew->slug )->first();
+      $cont = 1;
+
+      while($postPresente){
+        $postNew->slug = $slufBeginner.'-'.$cont;
+        $postPresente = Post::where('slug',$postNew->slug )->first();
+          $cont++;
+      }
+
+      $postNew->slug = $postNew->slug;
+
+
       $postNew->title = $data['title'];
       $postNew->content = $data['content'];
       $postNew->save();
-
+      $postNew->tags()->sync($data['tags']);
       return redirect()->route('post.index');
     }
 
@@ -79,9 +98,15 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Post $post)
     {
-      return view('admin.post.edit');
+      if($post){
+        $data = [
+          'postUnico'=> $post
+        ];
+        return view('admin.post.edit',$data);
+      }
+      abort('404');
 
     }
 
@@ -95,7 +120,20 @@ class PostController extends Controller
     public function update(Request $request, Post $post)
     {
       $data = $request->all();
+      $post->slug = Str::slug($data['title']);
+      $slufBeginner = $post->slug;
+      $postPresente = Post::where('slug',$post->slug )->first();
+      $cont = 1;
+
+      while($postPresente){
+        $post->slug = $slufBeginner.'-'.$cont;
+        $postPresente = Post::where('slug',$post->slug )->first();
+          $cont++;
+      }
+
+      $post->slug = $post->slug;
       $post->update($data);
+
 
       return redirect()->route('post.index');
     }

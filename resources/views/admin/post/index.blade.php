@@ -4,8 +4,8 @@
 @section('content')
 <div class="container-dashboard" style="Display: flex;">
   <div class="options-dashboard" style="margin-right: 50px; Display: flex; flex-direction: column;">
-    <a href="{{route('post.index')}}">Dashboard</a>
-    <a href="#">Tag</a>
+    <a style="margin-left: 20px; font-size: 25px;" href="{{route('post.index')}}">Dashboard</a>
+    <a style="margin-left: 20px; font-size: 25px;"href="{{route('tags')}}">Tag</a>
   </div>
   <div class="posts-dashboard" style="flex-grow: 1;">
     <h1>Lista posts</h1>

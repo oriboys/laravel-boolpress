@@ -30,6 +30,16 @@ Route::prefix('admin')
 ->middleware('auth')
 ->group(function () {
 Route::get('/', 'HomeController@index')->name('home');
+Route::get('/tags', function () {
+    // use App\Tag;
+
+    $tags = Tag::all();
+    $data = [
+      'tags' => $tags
+    ];
+
+    return view('admin.post.tags', $data);
+})->name('tags');
 Route::resource('/post', 'PostController');
 
   });
