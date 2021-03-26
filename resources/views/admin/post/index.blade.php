@@ -3,12 +3,13 @@
 
 @section('content')
 <div class="container-dashboard" style="Display: flex;">
-  <div class="options-dashboard" style="margin-right: 50px;">
-    ddd
+  <div class="options-dashboard" style="margin-right: 50px; Display: flex; flex-direction: column;">
+    <a href="{{route('post.index')}}">Dashboard</a>
+    <a href="#">Tag</a>
   </div>
   <div class="posts-dashboard" style="flex-grow: 1;">
     <h1>Lista posts</h1>
-    <a class="mgleft-1" href="{{route('admin.posts')}}">Inserire nuovo post</a>
+    <a class="mgleft-1" href="{{route('post.create')}}">Inserire nuovo post</a>
     <table class="mgleft-1 mgright-1" style="width: 100%;">
       <thead >
         <tr>
@@ -24,8 +25,15 @@
         <tr>
           <th>{{$post->title}}</th>
           <th>{{$post->user->name}}</th>
-          <th><a  href="">dettagli</a>
-            <th><a  href="">modifica</a>
+          <th><a  href="{{route('post.show', $post->id)}}">dettagli</a>
+            <th><a  href="{{route('post.edit', $post->id)}}">modifica</a>
+            </th>
+            <th>
+                <form class="" action="{{route('post.destroy',$post->id)}}" method="post">
+                  @method('DELETE')
+                  @csrf
+                  <button  type="submit" name="button">elimina</button>
+                </form>
             </th>
           </tr>
           @endforeach

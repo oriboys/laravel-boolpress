@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use Illuminate\support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use App\Post;
+
 
 class PostController extends Controller
 {
@@ -41,7 +44,16 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $data = $request->all();
+      $iduser = Auth::id();
+      $postNew = new Post();
+      $postNew->user_id = $iduser;
+      $postNew->slug = Str::slug($data['title']);
+      $postNew->title = $data['title'];
+      $postNew->content = $data['content'];
+      $postNew->save();
+
+      return redirect()->route('post.index');
     }
 
     /**
@@ -50,9 +62,15 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Post $post)
     {
-        //
+      if($post){
+        $data = [
+          'postUnico'=> $post
+        ];
+        return view('admin.post.show',$data);
+      }
+      abort('404');
     }
 
     /**
@@ -63,7 +81,8 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+      return view('admin.post.edit');
+
     }
 
     /**
@@ -73,9 +92,12 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Post $post)
     {
-        //
+      $data = $request->all();
+      $post->update($data);
+
+      return redirect()->route('post.index');
     }
 
     /**
@@ -84,8 +106,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Post $post)
     {
-        //
+      $post->delete();
+      return redirect()->route('post.index');
     }
 }
