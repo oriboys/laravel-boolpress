@@ -72,6 +72,7 @@ class PostController extends Controller
       $postNew->content = $data['content'];
       $postNew->save();
       $postNew->tags()->sync($data['tags']);
+      
       return redirect()->route('post.index');
     }
 
@@ -87,6 +88,7 @@ class PostController extends Controller
         $data = [
           'postUnico'=> $post
         ];
+        // dd($post);
         return view('admin.post.show',$data);
       }
       abort('404');
@@ -100,9 +102,11 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
+      $tags= Tag::all();
       if($post){
         $data = [
-          'postUnico'=> $post
+          'postUnico'=> $post,
+          'tags' => $tags
         ];
         return view('admin.post.edit',$data);
       }
@@ -133,6 +137,7 @@ class PostController extends Controller
 
       $post->slug = $post->slug;
       $post->update($data);
+      $post->tags()->sync($data['tags']);
 
 
       return redirect()->route('post.index');

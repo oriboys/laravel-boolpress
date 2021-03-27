@@ -19,6 +19,13 @@
         <label for="inputContent" class="form-label">contenuto</label>
         <input type="text" class="form-control" name="content" style="width:  600px; height: 400px;">
       </div>
+      @foreach($tags as $tag)
+      <div class="form-check mb-3">
+        <input type="checkbox" class="form-check-input" name="tags[]" value="{{$tag->id}}" id="validationFormCheck1" >
+        <label class="" for="validationFormCheck1">{{$tag->name}}</label>
+      </div>
+
+      @endforeach
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 

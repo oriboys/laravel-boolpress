@@ -12,7 +12,18 @@
     <a class="mgleft-1" href="{{route('post.index')}}" style="margin-bottom: 20px;">indietro</a>
          <h3 style="margin-bottom: 20px;"> {{{$postUnico->user->name}}}</h3>
         <h5 style="margin-bottom: 50px;">slug: {{$postUnico->slug}}</h5>
-      <p> {{$postUnico->content}}</p>
+        <p>tag associati:</p>
+          @if(count($postUnico->tags) > 0)
+            <ul style="margin-bottom: 50px;">
+              @foreach($postUnico->tags as $tag)
+              <li>{{$tag->name}}</li>
+              @endforeach
+            </ul>
+           @else
+           <p>nessun tag associato</p>
+
+          @endif
+      <p> <span style="font-weight: bold;"> Testo post:</span> {{$postUnico->content}}</p>
 
   </div>
 
