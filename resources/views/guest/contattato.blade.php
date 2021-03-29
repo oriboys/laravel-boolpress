@@ -2,7 +2,10 @@
 
 @section('content')
 <div class="contattato">
-contattato
+  @if(session('status'))
+    <p>Stato invio messaggio:</p>
+    <p>{{session('status')}}</p>
+  @endif
 
 
 </div>
