@@ -33,7 +33,7 @@ class HomeController extends Controller
       $newLead = new Lead();
       $newLead->fill($dati);
       $newLead->save();
-      Mail::to('info@boolpress.com')->send(new SendNewMail());
+      Mail::to($dati['email'])->send(new SendNewMail($newLead));
       // dd($newLead);
 
 
